@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Server Health Monitor</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<script>
+    setTimeout(function () {
+        location.reload();
+    }, 5000)
+</script>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+
+    <h1 class="text-primary text-center mb-5">
+        Server Health Monitor
+    </h1>
+
+    <div class="row">
+
+        <!-- CPU Card -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow p-3">
+                <h3>CPU Usage</h3>
+
+                <p class="text-{{ cpu_color }} fs-4 fw-bold">
+                    {{ cpu }}%
+                </p>
+
+                <div class="progress">
+                    <div class="progress-bar bg-{{ cpu_color }}"
+                         role="progressbar"
+                         style="width: {{ cpu }}%;">
+                        {{ cpu }}%
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RAM Card -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow p-3">
+                <h3>RAM Usage</h3>
+
+                <p class="text-{{ ram_color }} fs-4 fw-bold">
+                    {{ ram }}%
+                </p>
+
+                <div class="progress">
+                    <div class="progress-bar bg-{{ ram_color }}"
+                         role="progressbar"
+                         style="width: {{ ram }}%;">
+                        {{ ram }}%
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Disk Card -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow p-3">
+                <h3>Disk Usage</h3>
+
+                <p class="text-{{ disk_color }} fs-4 fw-bold">
+                    {{ disk }}%
+                </p>
+
+                <div class="progress">
+                    <div class="progress-bar bg-{{ disk_color }}"
+                         role="progressbar"
+                         style="width: {{ disk }}%;">
+                        {{ disk }}%
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Uptime Card -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow p-3">
+                <h3>Uptime</h3>
+
+                <p class="fs-4 fw-bold text-primary">
+                    {{ uptime }}
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="text-center mt-4">
+        <button class="btn btn-primary">
+            Check Server
+        </button>
+    </div>
+
+</div>
+
+</body>
+</html>
