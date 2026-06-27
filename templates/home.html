@@ -17,6 +17,8 @@
         Server Health Monitor
     </h1>
 
+    <div class="alert alert-{{ system_color }} text-center fw-bold">System Status: {{ system_status }}</div>
+
     <div class="row">
 
         <!-- CPU Card -->
@@ -37,6 +39,8 @@
                 </div>
 
                 <p class="mb-0">CPU Cores: {{ cpu_cores }}</p>
+
+                <p class="mb-0">Physical Cores: {{ physical_cores }}</p>
             </div>
         </div>
 
@@ -57,7 +61,11 @@
                     </div>
                 </div>
 
-                <p class="mb-0">Total Ram: {{ total_ram }} GB</p>
+                <p class="mb-0">Total RAM: {{ total_ram }} GB</p>
+
+                <p class="mb-0">Used RAM: {{ used_ram }} GB</p>
+
+                <p class="mb-0">Available RAM: {{ aval_ram }} GB</p>
             </div>
         </div>
 
@@ -79,6 +87,10 @@
                 </div>
 
                 <p class="mb-0">Total Disk: {{ total_disk }} GB</p>
+
+                <p class="mb-0">Used Disk: {{ used_disk }} GB</p>
+
+                <p class="mb-0">Free Disk: {{ free_disk }} GB</p>
             </div>
         </div>
 

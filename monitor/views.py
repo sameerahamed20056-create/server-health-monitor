@@ -19,10 +19,15 @@ def home(request):
     
     cpu = psutil.cpu_percent(interval=1)
     cpu_cores = psutil.cpu_count(logical=True)
+    physical_cores = psutil.cpu_count(logical=False)
     ram = psutil.virtual_memory().percent
     total_ram = round(psutil.virtual_memory().total / (1024 ** 3), 2)
+    used_ram = round(psutil.virtual_memory().used / (1024 ** 3), 2)
+    aval_ram = round(psutil.virtual_memory().available / (1024 ** 3), 2)
     disk = psutil.disk_usage('/').percent
     total_disk = round(psutil.disk_usage('/').total / (1024 ** 3), 2)
+    used_disk = round(psutil.disk_usage('/').used / (1024 ** 3), 2)
+    free_disk = round(psutil.disk_usage('/').free / (1024 ** 3), 2)
     boot_time = psutil.boot_time()
     uptime_seconds = datetime.datetime.now().timestamp() - boot_time
     uptime = str(datetime.timedelta(seconds=int(uptime_seconds)))
@@ -36,13 +41,31 @@ def home(request):
     ram_color = get_status_color(ram)
     disk_color = get_status_color(disk)
     
+    if cpu < 80 and ram < 80 and disk < 80:
+        system_status = "Healthy"
+    
+    else:
+        system_status = "Warning"
+        
+    
+    if system_status == 'Healthy':
+        system_color = "success"
+    
+    else:
+        system_color = "danger"
+    
     context = {
         "cpu" : cpu,
         "cpu_cores" : cpu_cores,
+        "physical_cores" : physical_cores,
         "ram" : ram,
         "total_ram" : total_ram,
+        "used_ram" : used_ram,
+        "aval_ram" : aval_ram,
         "disk" : disk,
         "total_disk" : total_disk,
+        "used_disk" : used_disk,
+        "free_disk" : free_disk,
         "uptime" : uptime,
         "current_time" : current_time,
         "hostname" : hostname,
@@ -52,6 +75,8 @@ def home(request):
         "cpu_color" : cpu_color,
         "ram_color"  : ram_color,
         "disk_color" : disk_color,
+        "system_status" : system_status,
+        "system_color" : system_color
         
     }
     return render(request, "home.html", context)
