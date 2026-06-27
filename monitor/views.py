@@ -40,6 +40,58 @@ def home(request):
     os_name = platform.system() + " " + platform.release()
     username = getpass.getuser()
     
+    
+    cpu_processes = []
+
+    for process in psutil.process_iter(['pid', 'name', 'cpu_percent']):
+
+        try:
+
+            cpu_processes.append(process.info)
+
+        except:
+
+            pass
+
+
+    def get_cpu(process):
+        return process["cpu_percent"]
+
+
+    cpu_processes = sorted(
+    cpu_processes,
+    key=get_cpu,
+    reverse=True
+    )
+
+    cpu_processes = cpu_processes[:5]
+    
+    
+    ram_processes = []
+
+    for process in psutil.process_iter(['pid', 'name', 'memory_percent']):
+
+        try:
+
+            ram_processes.append(process.info)
+
+        except:
+
+            pass
+
+
+    def get_memory(process):
+        return process["memory_percent"]
+
+
+    ram_processes = sorted(
+    ram_processes,
+    key=get_memory,
+    reverse=True
+    )
+
+    ram_processes = ram_processes[:5]
+    
     cpu_color = get_status_color(cpu)
     ram_color = get_status_color(ram)
     disk_color = get_status_color(disk)
@@ -81,7 +133,8 @@ def home(request):
         "system_status" : system_status,
         "system_color" : system_color,
         "bytes_sent" : bytes_sent,
-        "bytes_received" : bytes_received
-        
+        "bytes_received" : bytes_received,
+        "cpu_processes" : cpu_processes,
+        "ram_processes" : ram_processes        
     }
     return render(request, "home.html", context)

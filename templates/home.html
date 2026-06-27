@@ -155,6 +155,94 @@
         </div>
     </div>
 
+    <div class="card shadow mb-4">
+
+    <div class="card-header bg-success text-white">
+        <h4 class="mb-0">Top 5 RAM Processes</h4>
+    </div>
+
+    <div class="card-body">
+
+        <table class="table table-striped">
+
+            <thead>
+
+                <tr>
+                    <th>PID</th>
+                    <th>Process</th>
+                    <th>Memory %</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for process in ram_processes %}
+
+                <tr>
+
+                    <td>{{ process.pid }}</td>
+
+                    <td>{{ process.name }}</td>
+
+                    <td>{{ process.memory_percent|floatformat:2 }}%</td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    </div>
+
+    <div class="card shadow mb-4">
+
+    <div class="card-header bg-success text-white">
+        <h4 class="mb-0">Top 5 CPU Processes</h4>
+    </div>
+
+    <div class="card-body">
+
+        <table class="table table-striped">
+
+            <thead>
+
+                <tr>
+                    <th>PID</th>
+                    <th>Process</th>
+                    <th>CPU %</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for process in cpu_processes %}
+
+                <tr>
+
+                    <td>{{ process.pid }}</td>
+
+                    <td>{{ process.name }}</td>
+
+                    <td>{{ process.cpu_percent }}%</td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
     <div class="text-center mt-4">
         <button class="btn btn-primary">
             Check Server
