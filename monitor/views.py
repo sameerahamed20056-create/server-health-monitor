@@ -33,7 +33,10 @@ def home(request):
     uptime = str(datetime.timedelta(seconds=int(uptime_seconds)))
     current_time = datetime.datetime.now().strftime("%d %b %Y, %I:%M:%S %p")
     hostname = socket.gethostname()
-    ip_address = socket.gethostbyname(hostname) 
+    ip_address = socket.gethostbyname(hostname)
+    net = psutil.net_io_counters()
+    bytes_sent = round(net.bytes_sent / (1024 * 1024), 2)
+    bytes_received = round(net.bytes_recv / (1024 * 1024), 2)
     os_name = platform.system() + " " + platform.release()
     username = getpass.getuser()
     
@@ -76,7 +79,9 @@ def home(request):
         "ram_color"  : ram_color,
         "disk_color" : disk_color,
         "system_status" : system_status,
-        "system_color" : system_color
+        "system_color" : system_color,
+        "bytes_sent" : bytes_sent,
+        "bytes_received" : bytes_received
         
     }
     return render(request, "home.html", context)

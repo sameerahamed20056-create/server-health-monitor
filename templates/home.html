@@ -41,6 +41,8 @@
                 <p class="mb-0">CPU Cores: {{ cpu_cores }}</p>
 
                 <p class="mb-0">Physical Cores: {{ physical_cores }}</p>
+
+                <canvas id="cpuChart"></canvas>
             </div>
         </div>
 
@@ -66,6 +68,8 @@
                 <p class="mb-0">Used RAM: {{ used_ram }} GB</p>
 
                 <p class="mb-0">Available RAM: {{ aval_ram }} GB</p>
+
+                <canvas id="ramChart"></canvas>
             </div>
         </div>
 
@@ -91,6 +95,8 @@
                 <p class="mb-0">Used Disk: {{ used_disk }} GB</p>
 
                 <p class="mb-0">Free Disk: {{ free_disk }} GB</p>
+
+                <canvas id="diskChart"></canvas>
             </div>
         </div>
 
@@ -111,21 +117,43 @@
 
     <hr>
 
-    <p class="fw-bold">
-            Hostname: {{ hostname }}
-    </p>
+    <div class="card shadow mb-4">
 
-    <p class="fw-bold">
-        Operating System: {{ os_name }}
-    </p>
+        <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">System Information</h4>
+        </div>
 
-    <p class="fw-bold">
-        Username: {{ username }}
-    </p>
+        <div class="card-body">
+            
+            <p class="fw-bold">
+                Hostname: {{ hostname }}
+            </p>
 
-    <p class="fw-bold">
-        IP Address: {{ ip_address }}
-    </p>
+            <p class="fw-bold">
+                Operating System: {{ os_name }}
+            </p>
+
+            <p class="fw-bold">
+                Username: {{ username }}
+            </p>
+
+            <p class="fw-bold">
+                IP Address: {{ ip_address }}
+            </p>
+
+        </div>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Network Information</h4>
+        </div>
+
+        <div class="card-body">
+            <p class="fw-bold">Bytes Sent: {{ bytes_sent }} MB</p>
+            <p class="fw-bold">Bytes Received: {{ bytes_received }} MB</p>
+        </div>
+    </div>
 
     <div class="text-center mt-4">
         <button class="btn btn-primary">
@@ -135,5 +163,78 @@
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const cpu = {{ cpu }};
+new Chart(document.getElementById("cpuChart"),
+{
+    type: "doughnut",
+    data: {
+        labels: ["Used", "Free"],
+        datasets: [{
+            data: [cpu, 100 - cpu],
+            backgroundColor: ["red", "green"],
+            borderWidth: 2
+        }]
+    },
+
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: "bottom"
+            }
+        }
+    }
+});
+
+
+const ram = {{ ram }};
+new Chart(document.getElementById("ramChart"),
+{
+    type: "doughnut",
+    data: {
+        labels: ["Used", "Free"],
+        datasets: [{
+            data: [ ram, 100 - ram],
+            backgroundColor: ["orange", "green"],
+            borderWidth: 2
+        }]
+    },
+
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: "bottom"
+            }
+        }
+    }
+})
+
+const disk = {{ disk }};
+new Chart(document.getElementById("diskChart"),
+{
+    type: "doughnut",
+    data: {
+        labels: ["Used", "Free"],
+        datasets: [{
+            data: [ disk, 100 - disk],
+            backgroundColor: ["blue", "green"],
+            borderWidth: 2
+        }]
+    },
+
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: "bottom"
+            }
+        }
+    }
+})
+</script>
 </body>
 </html>
