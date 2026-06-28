@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-7!#xr_&xzks62q0di7-dw3hwy$+)y7qfgs-mpj$rjqyylp%uh0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "server-health-monitor-s2jo.onrender.com",
+    "127.0.0.1",
+    "localhost",
+]
 
 
 # Application definition
