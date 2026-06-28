@@ -8,10 +8,8 @@ import getpass
 def get_status_color(value):
     if value < 50:
         return "success"
-    
     elif value < 80:
         return "warning"
-    
     else:
         return "danger"
 
@@ -95,17 +93,15 @@ def home(request):
     cpu_color = get_status_color(cpu)
     ram_color = get_status_color(ram)
     disk_color = get_status_color(disk)
-    
+        
     if cpu < 80 and ram < 80 and disk < 80:
         system_status = "Healthy"
     
     else:
         system_status = "Warning"
         
-    
     if system_status == 'Healthy':
         system_color = "success"
-    
     else:
         system_color = "danger"
     
@@ -128,7 +124,7 @@ def home(request):
         "os_name" : os_name,
         "username" : username,
         "cpu_color" : cpu_color,
-        "ram_color"  : ram_color,
+        "ram_color" : ram_color,
         "disk_color" : disk_color,
         "system_status" : system_status,
         "system_color" : system_color,
